@@ -1,1 +1,1 @@
-web: gunicorn SellAnything.wsgi --log-file
+web: gunicorn SellAnything.wsgi --log-file -
