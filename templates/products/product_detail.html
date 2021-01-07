@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}{{ block.super }}| {{ object.title }}{% endblock title %}
+{% block content %}
+<div class="row pt-10">
+    <div class="col-lg-8 pt-5">
+        <input class="btn  printbtn " type="button" value="Print Details" onclick="printDiv()">
+        <div id="printarea">
+            <!-- Title -->
+            <h1 class="mt-4">{{ object.title }} </h1>
+            <!-- Seller -->
+            <p class="lead">
+                by
+                <a href="/?seller={{ object.user }}">{{ object.user.username }}</a>
+            </p>
+
+            <hr>
+            <!-- Date/Time -->
+            <p>Posted on, {{ object.created_at|naturaltime }}</p>
+            <hr>
+
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="{{ object.image.url }}" alt="{{ object.title }}">
+            <hr>
+
+            <!-- Post Content -->
+            {% if user.is_authenticated %}
+            <p class="lead text-center text-light bg-dark table-width"><span class="text-light">Call Owner :
+                </span>0{{object.user.phone}}</p>
+            {%else%}
+            <p class="lead text-center bg-dark table-width text-light"><span class="text-light">Call Owner :
+                </span>Login to
+                see wner Phone number</p>
+            {%endif%}
+
+            <p class="lead border text-light bg-dark text-center table-width">Details :</p>
+            <p class="border table-width">{{ object.details }}</p>
+            <table class="table table-striped table-bordered table-width">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ object.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>
+                            {% for cat in object.get_categories %}
+                            <a href="/?cat={{ cat }}">{{ cat }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>{{ object.location }}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{ object.quantity }}</td>
+                    </tr>
+                    <tr>
+                        <td>Condition</td>
+                        <td>{{ object.condition }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of people liked this product</td>
+                        <td>{{ object.likes_count }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" name='slug' value="{{ object.slug }}">
+                        <textarea name="comment" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Single Comment -->
+
+        {% if object.comments.all %}
+        {% for comment in object.comments.all %}
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle comment_pic" src="{{ comment.user.profile.image.url }}" alt="Image">
+            <div class="media-body">
+                <h5 class="mt-0">{{ comment.user.get_full_name }}</h5>
+                <p>{{ comment.text }}<br>
+                    <small><i class="far fa-clock"></i>&nbsp{{ comment.created_at }}</small>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% endblock content %}

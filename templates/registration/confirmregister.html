@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block widgets %}{% endblock widgets %}
+{% block title %}{{ block.super }}| User Registration{% endblock title %}
+{% block content %}
+<div class="row my-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <h5 class="card-header text-center">User Registration</h5>
+            <div class="card-body">
+                <!-- <form action="." method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form> -->
+                <form action="{% url 'confirmregister' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                  <div class="form-group">
+                  <label for="first_name">First Name</label>
+                  <input type="text" name="first_name" class="form-control" value="{{first_name}} "readonly>
+                </div>
+                <div class="form-group">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" name="last_name" class="form-control" value="{{last_name}} "readonly>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" class="form-control" value="{{username}} "readonly>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" class="form-control" value="{{email}} "readonly>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" class="form-control" value="{{phone}} "readonly>
+                  </div>
+                <div class="form-group">
+                  <label for="password2">Password</label>
+                  <input type="password" name="password" class="form-control" value="{{password}} "readonly>
+                </div>
+                <div class="form-group">
+                    <label for="confirmcode">Confirmation Code</label>
+                    <input type="password" name="confirmcode" class="form-control" required>
+                  </div>
+                <input type="submit" value="Register" class="btn btn-secondary btn-block">
+              </form>
+              <p class="mt-3">Already have an account? <a href="{% url 'login' %}">Login here..</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

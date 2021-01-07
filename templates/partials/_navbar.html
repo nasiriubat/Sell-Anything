@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">SellAnything</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            {% with request.resolver_match.url_name as url_name %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if url_name == 'home' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'home' %}">All Products
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item {% if url_name == 'create' %}active{% endif %}">
+                    <a class="nav-link bordernav" href="{% url 'create' %}">Sell</a>
+                </li>
+                <li class="nav-item dropdown {% if url_name == 'used' %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="{% url 'home' %}" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'my_products' %}">My Products</a>
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout</a>
+                        <form action="{% url 'logout' %}" method="POST" id="logout">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    </div>
+                </li>
+                {% if request.user.is_superuser %}
+                <li class="nav-item {% if url_name == 'admin' %}active{% endif %}">
+                    <a class="nav-link bordernav " href="/admin">Admin Panel</a>
+                </li>
+                {% endif %}
+
+                {% else %}
+                <li class="nav-item {% if url_name == 'login' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item {% if url_name == 'register' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+
+            </ul>
+            {% endwith %}
+        </div>
+    </div>
+</nav>

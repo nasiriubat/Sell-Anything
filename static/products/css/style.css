@@ -1,0 +1,62 @@
+body {
+    padding-top: 56px;
+}
+.navbar-brand{
+    font-family:sans-serif;
+    color: honeydew !important;
+    font-size: 30px !important;
+}
+.user-icons{
+    font-size: 25px;
+}
+.errorlist{
+    color: red!important;
+}
+.comment_pic{
+    width: 50px;
+    height: 50px;
+}
+.update{
+    padding:5px 100px;
+    font-size: 20px;
+}
+.table-width{
+    width: 530px !important;
+}
+.nav-item{
+    margin-left: 10px;
+}
+.banner{
+    margin-left: 3px;
+    width: 100% !important;
+    height: 400px;
+}
+.banner img{
+    width: 100%;
+    height: 400px;
+}
+
+.navbar{
+    width: 80% !important;
+    margin: 0 auto !important;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
+.footer{
+    width: 80% !important;
+    margin: 0 auto !important;
+}
+.printbtn{
+    background-color: #ecf02c !important;
+    color: black !important;
+}
+
+.navbar,.btn,.footer{
+    background-color: chocolate !important;
+}
+.nav-link{
+    font-size: 20px !important;
+}
+.bordernav{
+    border: 3px solid seashell;
+}
